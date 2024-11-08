@@ -1,0 +1,23 @@
+# services:
+#   web:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "80:80"
+#     volumes:
+#       - .:/app
+#       - /app/node_modules
+#     environment:
+#       - NODE_ENV=production
+#     restart: unless-stopped
+
+#   db:
+#     image: postgres:latest
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: postgres
+#       POSTGRES_DB: astro
+#     ports:
+#       - "5432:5432"
+#     restart: always
