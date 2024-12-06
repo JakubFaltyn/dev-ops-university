@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: payload-cms
+    labels:
+        app: payload-cms
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: payload-cms
+    template:
+        metadata:
+            labels:
+                app: payload-cms
+        spec:
+            containers:
+                - name: payload
+                  image: payload:latest
+                  ports:
+                      - containerPort: 3000
+                  env:
+                      - name: DATABASE_URI
+                        value: "mongodb://mongo-service:27017/payload"
+                      - name: PAYLOAD_SECRET
+                        valueFrom:
+                            secretKeyRef:
+                                name: payload-secrets
+                                key: payload-secret
+                  resources:
+                      limits:
+                          memory: "1Gi"
+                          cpu: "1000m"
+                      requests:
+                          memory: "512Mi"
+                          cpu: "500m"
